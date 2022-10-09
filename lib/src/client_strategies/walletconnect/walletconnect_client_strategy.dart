@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:walletconnect_dart/walletconnect_dart.dart';
-import 'package:web3_cross_client/client_strategies/client_strategy.dart';
-import 'package:web3_cross_client/client_strategies/types.dart';
+import 'package:web3_cross_client/src/client_strategies/client_strategy.dart';
+import 'package:web3_cross_client/src/client_strategies/types.dart';
 import 'package:web3dart/json_rpc.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:web3dart_walletconnect/web3dart_walletconnect.dart';

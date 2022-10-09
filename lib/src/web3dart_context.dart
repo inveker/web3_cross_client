@@ -1,5 +1,5 @@
-import 'package:web3_cross_client/client_strategies/client_strategy.dart';
-import 'package:web3_cross_client/client_strategies/types.dart';
+import 'package:web3_cross_client/src/client_strategies/client_strategy.dart';
+import 'package:web3_cross_client/src/client_strategies/types.dart';
 import 'package:web3dart/json_rpc.dart';
 import 'package:web3dart/web3dart.dart';
 
@@ -13,8 +13,17 @@ class Web3DartContext {
   ClientStrategy? _clientStrategy;
 
   Web3DartContext({
+    Web3Client? web3client,
+    RpcService? rpc,
+    CredentialsWithKnownAddress? credentials,
     ClientStrategy? clientStrategy,
-  }) : _clientStrategy = clientStrategy;
+  }) {
+    _web3client = web3client;
+    _rpc = rpc;
+    _credentials = credentials;
+    _web3client = web3client;
+    _clientStrategy = clientStrategy;
+  }
 
   Web3Client get web3client => _web3client ?? (throw Exception('Web3Client not initialized'));
 

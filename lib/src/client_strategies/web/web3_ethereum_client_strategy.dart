@@ -1,11 +1,13 @@
-import 'package:web3_cross_client/client_strategies/client_strategy.dart';
-import 'package:web3_cross_client/client_strategies/types.dart';
+import 'package:web3_cross_client/src/client_strategies/client_strategy.dart';
+import 'package:web3_cross_client/src/client_strategies/types.dart';
 import 'package:web3_ethereum/web3_ethereum.dart';
 import 'package:web3dart/json_rpc.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:web3dart_ethereum/web3dart_ethereum.dart';
 
 class Web3EthereumClientStrategy extends ClientStrategy {
+  static bool isSupported() => Web3Ethereum.isSupported;
+
   @override
   Future<ConnectionResult> connect(ConnectionReadyCallback readyConnection) async {
     readyConnection(null);
@@ -40,8 +42,4 @@ class Web3EthereumClientStrategy extends ClientStrategy {
       addressHex: accounts.first,
     );
   }
-}
-
-bool isSupportedWeb3EthereumClientStrategy() {
-  return Web3Ethereum.isSupported;
 }

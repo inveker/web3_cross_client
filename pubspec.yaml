@@ -10,11 +10,14 @@ dependencies:
   web3dart: ^2.4.1
   walletconnect_dart: ^0.0.11
   web3dart_walletconnect:
-    git: https://github.com/inveker/web3dart_walletconnect
+    path: ../web3dart_walletconnect
+#    git: https://github.com/inveker/web3dart_walletconnect
   web3_ethereum:
-    git: https://github.com/inveker/web3_ethereum
+    path: ../web3_ethereum
+#    git: https://github.com/inveker/web3_ethereum
   web3dart_ethereum:
-    git: https://github.com/inveker/web3dart_ethereum
+    path: ../web3dart_ethereum
+#    git: https://github.com/inveker/web3dart_ethereum
 
 dev_dependencies:
   flutter_lints: ^2.0.0

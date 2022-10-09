@@ -8,12 +8,14 @@ import 'package:web3dart/web3dart.dart';
 import 'package:web3dart_walletconnect/web3dart_walletconnect.dart';
 
 class WalletConnectClientStrategy extends ClientStrategy {
+  late final WalletConnect _walletConnect;
+
   @override
   Future<ConnectionResult> connect(ConnectionReadyCallback readyConnection) async {
-    final walletConnect = _buildWalletConnect();
-    final rpcService = _buildRpcService(walletConnect);
+    _walletConnect = _buildWalletConnect();
+    final rpcService = _buildRpcService(_walletConnect);
     final web3client = _buildWeb3Client(rpcService);
-    final credentials = await _buildCredentials(walletConnect, readyConnection);
+    final credentials = await _buildCredentials(_walletConnect, readyConnection);
 
     return ConnectionResult(
       web3client: web3client,
@@ -42,11 +44,14 @@ class WalletConnectClientStrategy extends ClientStrategy {
     return Web3Client.custom(rpcService);
   }
 
-  Future<CredentialsWithKnownAddress> _buildCredentials(WalletConnect walletConnect, ConnectionReadyCallback readyConnection) async{
+  Future<CredentialsWithKnownAddress> _buildCredentials(
+    WalletConnect walletConnect,
+    ConnectionReadyCallback readyConnection,
+  ) async {
     final completer = Completer<List<String>>();
     walletConnect.on(
       'connect',
-          (SessionStatus session) => completer.complete(session.accounts),
+      (SessionStatus session) => completer.complete(session.accounts),
     );
     await walletConnect.createSession(
       onDisplayUri: readyConnection,
@@ -56,5 +61,11 @@ class WalletConnectClientStrategy extends ClientStrategy {
       EthereumWalletConnectProvider(walletConnect),
       addressHex: accounts.first,
     );
+  }
+
+  @override
+  Future<void> quit() async {
+    await _walletConnect.killSession();
+    await _walletConnect.close();
   }
 }

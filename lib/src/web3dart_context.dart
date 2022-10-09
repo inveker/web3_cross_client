@@ -31,10 +31,12 @@ class Web3DartContext {
 
   CredentialsWithKnownAddress get credentials => _credentials ?? (throw Exception('Credentials not initialized'));
 
-  void reset() {
+  Future<void> reset() async {
+    await _web3client?.dispose();
     _web3client = null;
     _rpc = null;
     _credentials = null;
+    await _clientStrategy?.quit();
     _clientStrategy = null;
   }
 

@@ -31,7 +31,15 @@ class Web3DartContext {
 
   CredentialsWithKnownAddress get credentials => _credentials ?? (throw Exception('Credentials not initialized'));
 
+  void reset() {
+    _web3client = null;
+    _rpc = null;
+    _credentials = null;
+    _clientStrategy = null;
+  }
+
   void setClientStrategy(ClientStrategy clientStrategy) {
+    reset();
     _clientStrategy = clientStrategy;
   }
 
@@ -41,5 +49,12 @@ class Web3DartContext {
     _web3client = connectionResult.web3client;
     _rpc = connectionResult.rpcService;
     _credentials = connectionResult.credentials;
+  }
+
+  bool isConnected() {
+    bool isWeb3ClientInitialized = _web3client != null;
+    bool isRpcInitialized = _rpc != null;
+    bool isCredentialsInitialized = _credentials != null;
+    return isWeb3ClientInitialized && isRpcInitialized && isCredentialsInitialized;
   }
 }
